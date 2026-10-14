@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Export Preview – HueGist</title>
+  <link rel="stylesheet" href="preview.css">
+</head>
+<body>
+  <!-- Fixed Top Studio Toolbar (Hidden in Print/PDF) -->
+  <header class="studio-toolbar" id="studio-toolbar">
+    <div class="toolbar-left">
+      <img src="../icons/icon-32.png" alt="HueGist" class="toolbar-logo">
+      <span class="toolbar-title">HueGist Export Studio</span>
+      <span class="edit-badge">Interactive Editor</span>
+    </div>
+
+    <div class="toolbar-center">
+      <span class="hint-text">Click any text in the document below to edit before exporting</span>
+    </div>
+
+    <div class="toolbar-right">
+      <button id="reset-btn" class="secondary-btn" title="Revert to original highlights">Reset</button>
+      <button id="copy-docs-btn" class="action-btn" title="Copy rich text formatted for Google Docs, Word, or Notion">
+        <span>Copy for Docs</span>
+      </button>
+      <button id="download-md-btn" class="action-btn" title="Download Markdown file">
+        <span>Markdown</span>
+      </button>
+      <button id="print-pdf-btn" class="primary-btn" title="Open print dialog to save as clean vector PDF">
+        <span>Save as PDF</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Center Aligned Document Workspace -->
+  <main class="workspace-viewport">
+    <div class="document-page" id="document-paper">
+      <div id="editable-content" class="editable-content" contenteditable="true" spellcheck="true">
+        <!-- Highlights content is dynamically rendered here -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification Overlay -->
+  <div id="toast" class="toast">Highlights copied to clipboard!</div>
+
+  <script type="module" src="preview.js"></script>
+</body>
+</html>

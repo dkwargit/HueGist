@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HueGist Companion</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body class="dark-theme">
+  <div class="app-container">
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="brand">
+        <img src="../icons/icon-32.png" alt="HueGist" class="brand-logo">
+        <div class="brand-info">
+          <h1>HueGist</h1>
+          <span class="badge">Companion</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="manage-tags-btn" class="icon-btn" title="Manage Tags & Colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.85 0 3-1.15 3-2.5 0-.64-.25-1.22-.68-1.63-.41-.41-.68-.99-.68-1.63 0-1.38 1.12-2.5 2.5-2.5H18c3.31 0 6-2.69 6-6 0-4.42-4.03-8-9-8z"></path>
+          </svg>
+        </button>
+        <button id="refresh-btn" class="icon-btn" title="Refresh Highlights">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Manage Tags & Colors Drawer -->
+    <section class="tags-drawer" id="tags-drawer" style="display: none;">
+      <div class="drawer-header">
+        <h3>Tags & Colors</h3>
+        <button id="close-tags-btn" class="close-btn" title="Close">&times;</button>
+      </div>
+      <div class="tags-list" id="tags-list">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="add-tag-box">
+        <span class="sub-label">Add New Tag</span>
+        <div class="add-tag-form">
+          <input type="color" id="new-tag-color" value="#38bdf8" title="Choose color" />
+          <input type="text" id="new-tag-label" placeholder="Tag name (e.g. Action Item)" maxlength="25" />
+          <button id="add-tag-btn" class="add-tag-btn">+ Add</button>
+        </div>
+      </div>
+      <div class="backup-box">
+        <span class="sub-label">Backup & Restore</span>
+        <div class="backup-actions">
+          <button id="export-backup-btn" class="backup-btn" title="Download all highlights and tags as a JSON file">Export JSON</button>
+          <label for="import-backup-file" class="backup-btn import-btn" title="Import highlights from a backup JSON file">
+            Import JSON
+            <input type="file" id="import-backup-file" accept=".json,application/json" style="display: none;" />
+          </label>
+        </div>
+      </div>
+      <div class="drawer-footer">
+        <button id="reset-tags-btn" class="reset-link-btn">Reset Defaults</button>
+      </div>
+    </section>
+
+    <!-- Document Info Card -->
+    <section class="doc-card">
+      <div class="doc-meta">
+        <span class="doc-indicator"></span>
+        <h2 id="doc-title" class="doc-title" title="Reading current document">Loading document...</h2>
+      </div>
+      <a id="doc-link" class="doc-url" href="#" target="_blank"></a>
+    </section>
+
+    <!-- Controls & Search -->
+    <section class="controls-section">
+      <div class="search-box">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="search-input" placeholder="Search highlights..." />
+        <button id="clear-search" class="clear-search-btn" style="display: none;">&times;</button>
+      </div>
+
+      <!-- Filter Tabs / Pills -->
+      <div class="filter-pills" id="color-filter-pills">
+        <button class="pill-btn active" data-filter="all">All (<span id="total-count">0</span>)</button>
+        <button class="pill-btn pill-yellow" data-filter="yellow">Concept</button>
+        <button class="pill-btn pill-green" data-filter="green">Fact</button>
+        <button class="pill-btn pill-blue" data-filter="blue">Def</button>
+        <button class="pill-btn pill-pink" data-filter="pink">Review</button>
+        <button class="pill-btn pill-purple" data-filter="purple">Quote</button>
+      </div>
+    </section>
+
+    <!-- Main Highlights Feed -->
+    <main class="highlights-feed" id="highlights-container">
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
+        </div>
+        <h3>No Highlights Yet</h3>
+        <p>Select any text on this page to highlight with HueGist colors. Your notes will appear here automatically.</p>
+      </div>
+    </main>
+
+    <!-- Bottom Export Bar -->
+    <footer class="export-footer">
+      <div class="export-title-row">
+        <span>Export Summary</span>
+        <button id="clear-doc-btn" class="text-danger-btn" title="Clear page highlights">Clear</button>
+      </div>
+      <div class="export-buttons-grid">
+        <button id="copy-docs-btn" class="export-btn export-primary" title="Copy Rich HTML for Google Docs, Notion, Word">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>Copy for Docs</span>
+        </button>
+        <button id="export-pdf-btn" class="export-btn" title="Save as formatted PDF">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>PDF Export</span>
+        </button>
+        <button id="export-md-btn" class="export-btn" title="Download Markdown file">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Markdown</span>
+        </button>
+      </div>
+    </footer>
+
+    <!-- Toast Notification Overlay -->
+    <div id="toast" class="toast">Highlights copied to clipboard!</div>
+  </div>
+
+  <script type="module" src="sidepanel.js"></script>
+</body>
+</html>

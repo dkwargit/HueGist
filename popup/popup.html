@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HueGist</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body class="dark-theme">
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <img src="../icons/icon-32.png" alt="HueGist" class="logo">
+        <div class="brand-text">
+          <h1>HueGist</h1>
+          <span class="sub">Highlight Extractor</span>
+        </div>
+      </div>
+      <button id="open-sidepanel-icon-btn" class="icon-action-btn" title="Open Full Side Panel">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="15" y1="3" x2="15" y2="21"></line>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Companion Panel Banner Button -->
+    <button id="open-sidepanel-btn" class="primary-banner-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="15" y1="3" x2="15" y2="21"></line>
+      </svg>
+      <span>Open Companion Side Panel</span>
+    </button>
+
+    <!-- Page Stats Card -->
+    <div class="stats-card">
+      <div class="stats-header">
+        <span class="stats-label">Active Page</span>
+        <span id="page-highlight-count" class="count-badge">0 Highlights</span>
+      </div>
+      <h2 id="active-doc-title" class="doc-title">Loading...</h2>
+
+      <!-- Visual Color Distribution Bar -->
+      <div class="color-distribution-bar" id="distribution-bar">
+        <div class="dist-segment seg-yellow" style="width: 0%;"></div>
+        <div class="dist-segment seg-green" style="width: 0%;"></div>
+        <div class="dist-segment seg-blue" style="width: 0%;"></div>
+        <div class="dist-segment seg-pink" style="width: 0%;"></div>
+        <div class="dist-segment seg-purple" style="width: 0%;"></div>
+      </div>
+
+      <!-- Color Breakdown Dots -->
+      <div class="color-breakdown" id="color-breakdown">
+        <span class="color-pill pill-yellow"><span class="dot"></span><span id="count-yellow">0</span></span>
+        <span class="color-pill pill-green"><span class="dot"></span><span id="count-green">0</span></span>
+        <span class="color-pill pill-blue"><span class="dot"></span><span id="count-blue">0</span></span>
+        <span class="color-pill pill-pink"><span class="dot"></span><span id="count-pink">0</span></span>
+        <span class="color-pill pill-purple"><span class="dot"></span><span id="count-purple">0</span></span>
+      </div>
+    </div>
+
+    <!-- Quick Export Actions -->
+    <div class="actions-section">
+      <span class="section-title">Quick Export</span>
+      <div class="actions-grid">
+        <button id="popup-copy-docs" class="action-card-btn highlight-accent">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>Copy for Docs</span>
+        </button>
+        <button id="popup-export-pdf" class="action-card-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          <span>Save PDF</span>
+        </button>
+        <button id="popup-export-md" class="action-card-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          </svg>
+          <span>Markdown</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Instructions / Shortcuts -->
+    <div class="tips-box">
+      <p><strong>Tip:</strong> Select text on any web article to reveal the floating color palette, or press <code>Alt+Shift+S</code> to open the side panel.</p>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="popup-toast" class="toast">Copied to clipboard!</div>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
